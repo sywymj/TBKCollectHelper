@@ -185,7 +185,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="glyphicons_081_refresh.png" />
-    <Content Include="Readme.txt" />
+    <Content Include="Readme.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\glyphicons_319_sort.png" />
     <None Include="Resources\glyphicons_009_magic.png" />
     <None Include="Resources\glyphicons_195_circle_info.png" />

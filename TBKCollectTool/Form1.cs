@@ -641,19 +641,22 @@ namespace TBKCollectTool
 
                 pattern = @"http://[^\n]+?邮费[^\n]+?\n";
                 mc = Regex.Matches(inStr, pattern);
-                TreeNode emsNode = this.treeViewEmsSeparate.Nodes["All"].Nodes.Add("Ems", string.Format("包邮商品【{0}】条", mc.Count));
+                TreeNode emsNode = this.treeViewEmsSeparate.Nodes["All"].Nodes.Add("Ems", string.Format("不包邮商品【{0}】条", mc.Count));
                 emsNode.Tag = mc;
 
                 //5元邮费pxj
-                pattern = @"http://[^\n]+?邮费[^\n]*?5[^\n]*?拍下[^\n]*?\n";
+                //pattern = @"http://[^\n]+?邮费[^\n]*?(?<!\d)5[^\n]*?拍[^\n]*?\n";
+                pattern = @"http://[^\n]+?邮费[^\n\d]*5[^\n]*拍[^\n]*\n";
                 mc = Regex.Matches(inStr, pattern);
                 emsNode.Nodes.Add("Ems+5+pxj", string.Format("5元邮费+拍下减 【{0}】条", mc.Count)).Tag = mc;
                 //5元邮费
-                pattern = @"http://[^\n]+?邮费[^\n]*?5\.((?!拍下)[^\n])+?\n";
+                //pattern = @"http://[^\n]+?邮费[^\n]*?(?<!\d)5\.((?!拍)[^\n])+?\n";
+                pattern = @"http://[^\n]+?邮费[^\n\d]*5((?!拍)[^\n])*?\n";
                 mc = Regex.Matches(inStr, pattern);
                 emsNode.Nodes.Add("Ems+5", string.Format("5元邮费 【{0}】条", mc.Count)).Tag = mc;
                 //其它邮费
-                pattern = @"http://[^\n]+?邮费((?<!5\.)[^\n])+?\n";
+                //pattern = @"http://[^\n]+?邮费((?<!5\.)[^\n])+?\n";
+                pattern = @"http://[^\n]+?邮费[^\n\d]*((?!5)\d)+?[^\n]*\n";
                 mc = Regex.Matches(inStr, pattern);
                 emsNode.Nodes.Add("Ems+other", string.Format("其它邮费 【{0}】条", mc.Count)).Tag = mc;
 
@@ -661,17 +664,17 @@ namespace TBKCollectTool
 
                 pattern = @"http://((?!邮费)[^\n])+\n";
                 mc = Regex.Matches(inStr, pattern);
-                TreeNode noEmsNode=this.treeViewEmsSeparate.Nodes["All"].Nodes.Add("NoEms", string.Format("不包邮【{0}】条", mc.Count));
+                TreeNode noEmsNode=this.treeViewEmsSeparate.Nodes["All"].Nodes.Add("NoEms", string.Format("包邮【{0}】条", mc.Count));
                 noEmsNode.Tag = mc;
 
                 //拍下减
-                pattern = @"http://((?!邮费)[^\n])+拍下[^\n]+?\n";
+                pattern = @"http://((?!邮费)[^\n])+拍[^\n]+?\n";
                 mc = Regex.Matches(inStr, pattern);
                 noEmsNode.Nodes.Add("NoEms+pxj", string.Format("拍下减【{0}】条", mc.Count)).Tag = mc;
                 //其它
-                pattern = @"http://((?!邮费|拍下)[^\n])+\n";
+                pattern = @"http://((?!邮费|拍)[^\n])+\n";
                 mc = Regex.Matches(inStr, pattern);
-                noEmsNode.Nodes.Add("NoEms+other", string.Format("其它非包邮【{0}】条", mc.Count)).Tag = mc;
+                noEmsNode.Nodes.Add("NoEms+other", string.Format("其它包邮【{0}】条", mc.Count)).Tag = mc;
 
                 this.treeViewEmsSeparate.ExpandAll();
 
