@@ -223,7 +223,9 @@ namespace TBKCollectTool
                         ProductItem product = new ProductItem();
                         product.sourceID = _item.GetAttributeValue("data-itemid", string.Empty);
                         product.Image = _item.SelectSingleNode("div[contains(@class,'img')]//img").GetAttributeValue("src", string.Empty);
-                        product.Image = System.Text.RegularExpressions.Regex.Replace(product.Image, @"(?<=jpg)_(\S+?)\.jpg$", string.Empty);
+                        //product.Image = System.Text.RegularExpressions.Regex.Replace(product.Image, @"(?<=jpg)_(\S+?)\.jpg$", string.Empty);
+                        product.Image = System.Text.RegularExpressions.Regex.Replace(product.Image, @"_\d+x\d+\.\S+$", string.Empty);
+
 
                         product.Titel = _item.SelectSingleNode("div[contains(@class,'title')]").InnerText;
                         product.Price = _item.SelectSingleNode("div[contains(@class,'desc')]//span").InnerText;
