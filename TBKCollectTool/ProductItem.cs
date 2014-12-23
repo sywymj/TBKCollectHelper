@@ -19,6 +19,11 @@ namespace TBKCollectTool
         public string _dtFinish;
         public string _cateID;
 
+        public string _IsTmall;
+
+        public string _dtAdd;
+
+
         public static int IsPost;
         public static int IsSale;
         public static string dtBegin;
@@ -27,15 +32,17 @@ namespace TBKCollectTool
 
         public object[] ToArray()
         {
-            object[] objArra = new object[8];
+            object[] objArra = new object[10];
             objArra[0] = this.ID;
             objArra[1] = this.sourceID;
             objArra[2] = this.Titel;
             objArra[3] = this._cateID;
             objArra[4] = this._IsPost;
             objArra[5] = this._IsSale;
-            objArra[6] = this._dtBegin;
-            objArra[7] = this._dtFinish;
+            objArra[6] = this._IsTmall;
+            objArra[7] = this._dtBegin;
+            objArra[8] = this._dtFinish;
+            objArra[9] = this._dtAdd;
 
             return objArra;
         }

@@ -20,11 +20,12 @@ namespace TBKCollectTool
         string HomeUrl = "http://zx.mytaomi.com/uz";
         List<ProductItem> lsProducts = null;
         string configFileName = "config.dat";
+        Random myRand = new Random();
 
         SMS8080Helper.AppConfig appconifg = new SMS8080Helper.AppConfig();
 
-        string[] captionProductGrid = new string[] {"ID","商品编码","商品名称","分类","包邮","拍下减","开始时间","结束时间" };
-
+        string[] captionProductGrid = new string[] { "ID", "商品编码", "商品名称", "分类", "包邮", "拍下减", "天猫", "开始时间", "结束时间","添加时间" };
+        string[] colNameProductGrid = new string[] { "id", "numiid", "title", "catiid", "ems", "pxj", "tmall", "dtbegin", "dtfinish", "dtadd" };
         delegate void delegateGridBind(DataGridView flexGrid, DataTable dt, string[] captionArray);
 
         void gridBind(DataGridView flexGrid, DataTable dt, string[] captionArray)
@@ -60,11 +61,18 @@ namespace TBKCollectTool
         {
             this.webBrowser1.Navigate(HomeUrl);
             lsProducts = new List<ProductItem>();
-            this.dateTimePicker1.Value = DateTime.Now.AddYears(-1);
-            this.dateTimePicker2.Value = DateTime.Now.AddYears(1);
+            //this.dateTimePicker1.Value = DateTime.Now.AddYears(-1);
+            //this.dateTimePicker2.Value = DateTime.Now.AddYears(1);
 
-            this.dateTimePickerModifyB.Value = this.dateTimePicker1.Value;
-            this.dateTimePickerModifyF.Value = this.dateTimePicker2.Value;
+            //this.dateTimePickerModifyB.Value = this.dateTimePicker1.Value;
+            //this.dateTimePickerModifyF.Value = this.dateTimePicker2.Value;
+            DateTime dtInit = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd 00:00:00"));
+            this.dateTimePickerModifyB.Value = dtInit;
+            this.dateTimePickerModifyF.Value = dtInit;
+            this.dateTimePickerQueryB.Value = dtInit;
+            this.dateTimePickerQueryE.Value = dtInit;
+
+
 
             this.backgroundWorker1.DoWork += backgroundWorker1_DoWork;
             this.backgroundWorker1.RunWorkerCompleted += backgroundWorker1_RunWorkerCompleted;
@@ -84,7 +92,8 @@ namespace TBKCollectTool
             dt = new DataTable();
             for (int i = 0; i < captionProductGrid.Length; i++)
             {
-                dt.Columns.Add(captionProductGrid[i]);
+                //DataColumn col=dt.Columns.Add(captionProductGrid[i]);
+                DataColumn col = dt.Columns.Add(colNameProductGrid[i]);
             }
 
             hotkey = new GlobalHotkeys();
@@ -148,7 +157,7 @@ namespace TBKCollectTool
                     ProductItem _item=lsProducts[i];
                     if (string.IsNullOrEmpty(_item.ID))
                     {
-                        cmdStr = string.Format(@"INSERT IGNORE INTO `{11}` VALUES (NULL,'9999','{0}','0','1','{1}','{2}',NULL,NULL,'萌黛儿旗舰店',NULL,'1','admin','{3}',NULL,'{4}',NULL,'2277','0.00','0','{5}','6700','{6}','{7}','1','underway',NULL,'B',NULL,'{8}','{9}',NULL,NULL,NULL,'0','1','9844','0',NULL,NULL,NULL,'{10}','0','0',NULL)",
+                        cmdStr = string.Format(@"INSERT IGNORE INTO `{11}` VALUES (NULL,'9999','{0}','0','1','{1}','{2}',NULL,NULL,'萌黛儿旗舰店',NULL,'1','admin','{3}',NULL,'{4}',NULL,'2277','0.00','0','{5}','6700','{6}','{7}','1','underway',NULL,'{12}',NULL,'{8}','{9}',NULL,NULL,NULL,'0','1','9844','0',NULL,NULL,NULL,'{10}','0','0',NULL)",
                             //ProductItem.cateID,
                             lsProducts[i]._cateID,
                            lsProducts[i].sourceID,
@@ -165,15 +174,16 @@ namespace TBKCollectTool
                            lsProducts[i]._IsPost,
                            lsProducts[i]._IsSale,
 
-                           GetTimeStampShort(),
-
-                           DBHelperServer.ProductTableName
+                           //GetTimeStampShort(),
+                           lsProducts[i]._dtAdd,
+                           DBHelperServer.ProductTableName,
+                           lsProducts[i]._IsTmall
                             );
                     } 
                     else
                     {
-                        cmdStr = string.Format(@"Update {0} set coupon_start_time='{1}',coupon_end_time='{2}',ems='{3}',pxj='{4}',cate_id='{6}' where id='{5}'",
-                            DBHelperServer.ProductTableName,_item._dtBegin, _item._dtFinish, _item._IsPost, _item._IsSale,_item.ID,_item._cateID);
+                        cmdStr = string.Format(@"Update {0} set coupon_start_time='{1}',coupon_end_time='{2}',ems='{3}',pxj='{4}',cate_id='{6}',shop_type='{7}',add_time='{8}',title='{9}'  where id='{5}'",
+                            DBHelperServer.ProductTableName,_item._dtBegin, _item._dtFinish, _item._IsPost, _item._IsSale,_item.ID,_item._cateID,_item._IsTmall,_item._dtAdd,_item.Titel);
                     }
 
                     int hr=DBHelperServer.ExecuteCommand(cmdStr);
@@ -551,9 +561,13 @@ namespace TBKCollectTool
                     _item._dtFinish = mySqlRd.GetInt32("coupon_end_time").ToString();
                     _item._cateID = mySqlRd.GetInt32("cate_id").ToString();
 
+                    _item._IsTmall=mySqlRd.GetString("shop_type");
+                    _item._dtAdd = mySqlRd.GetInt32("add_time").ToString();
+
                     lsProducts.Add(_item);
                 }
                 mySqlRd.Close();
+                SetLog(string.Format(@"查询到 {0} 条商品！！", lsProducts.Count));
                 DisplaySelectProducts();
             }
             catch (System.Exception ex)
@@ -569,9 +583,17 @@ namespace TBKCollectTool
         {
             bool _isEms = this.checkBoxModifyEms.Checked;
             bool _isPxj = this.checkBoxModifyPxj.Checked;
+
+            bool _isTmall = this.checkBoxIsTmall.Checked;
+
             string _begin = GetTimeStampShort(this.dateTimePickerModifyB.Value);
             string _finish = GetTimeStampShort(this.dateTimePickerModifyF.Value);
             string _catiid = this.textBoxModifyCatiID.Text.Trim();
+
+            DateTime dateAddB = this.dateTimePickerAddB.Value;
+            TimeSpan dateAddRange = this.dateTimePickerAddF.Value - this.dateTimePickerAddB.Value;
+            double addMinRange = dateAddRange.TotalMinutes;
+
 
             try
             {
@@ -580,8 +602,14 @@ namespace TBKCollectTool
                     ProductItem _item = lsProducts[i];
                     _item._IsPost = _isEms ? "1" : "0";
                     _item._IsSale = _isPxj ? "1" : "0";
+
+                    _item._IsTmall = _isTmall ? "B" : "C";
+
                     _item._dtBegin = _begin;
                     _item._dtFinish = _finish;
+
+                    _item._dtAdd = GetTimeStampShort(dateAddB.AddMinutes(addMinRange * myRand.NextDouble()));
+
                     if (!string.IsNullOrEmpty(_catiid))
                     {
                         _item._cateID = _catiid;
@@ -725,6 +753,79 @@ namespace TBKCollectTool
             catch (System.Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void dataGridViewProduct_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex<0 || e.RowIndex<0)
+            {
+                return;
+            }
+            ProductItem curItem = lsProducts.Find((x =>
+            {
+                if (x.sourceID==this.dataGridViewProduct.Rows[e.RowIndex].Cells["numiid"].Value.ToString())
+                {
+                    return true;
+                }
+                return false;
+            }));
+
+            string curCellValue = this.dataGridViewProduct.Rows[e.RowIndex].Cells[e.ColumnIndex].Value as string;
+            if (curItem!=null)
+            {
+                switch (this.dataGridViewProduct.Columns[e.ColumnIndex].Name)
+                {
+                    case "title":
+                        {
+                            curItem.Titel = curCellValue;
+                        }
+                        break;
+                    case "catiid":
+                        {
+                            curItem._cateID = curCellValue;
+                        }
+                        break;
+                    case "ems":
+                        {
+                            curItem._IsPost = curCellValue;
+                        }
+                        break;
+                    case "pxj":
+                        {
+                            curItem._IsSale = curCellValue;
+                        }
+                        break;
+                    case "tmall":
+                        {
+                            curItem._IsTmall = curCellValue;
+                        }
+                        break;
+                    case "dtbegin":
+                        {
+                            curItem._dtBegin = curCellValue;
+                        }
+                        break;
+                    case "dtfinish":
+                        {
+                            curItem._dtFinish = curCellValue;
+                        }
+                        break;
+                    case "dtadd":
+                        {
+                            curItem._dtAdd = curCellValue;
+                        }
+                        break;
+                }
+            }
+
+        }
+
+        private void dataGridViewProduct_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            if (e.ColumnIndex<=1)
+            {
+                e.Cancel = true;
             }
         }
     }

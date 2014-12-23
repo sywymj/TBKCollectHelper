@@ -78,6 +78,7 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.groupBoxModify = new System.Windows.Forms.GroupBox();
+            this.checkBoxIsTmall = new System.Windows.Forms.CheckBox();
             this.buttonModifyToDB = new System.Windows.Forms.Button();
             this.buttonModify = new System.Windows.Forms.Button();
             this.textBoxModifyCatiID = new System.Windows.Forms.TextBox();
@@ -111,6 +112,9 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.dateTimePickerAddF = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerAddB = new System.Windows.Forms.DateTimePicker();
+            this.label18 = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -433,7 +437,7 @@
             // checkBoxPxj
             // 
             this.checkBoxPxj.AutoSize = true;
-            this.checkBoxPxj.Location = new System.Drawing.Point(83, 20);
+            this.checkBoxPxj.Location = new System.Drawing.Point(75, 19);
             this.checkBoxPxj.Name = "checkBoxPxj";
             this.checkBoxPxj.Size = new System.Drawing.Size(72, 16);
             this.checkBoxPxj.TabIndex = 1;
@@ -641,6 +645,10 @@
             // 
             // groupBoxModify
             // 
+            this.groupBoxModify.Controls.Add(this.label18);
+            this.groupBoxModify.Controls.Add(this.dateTimePickerAddF);
+            this.groupBoxModify.Controls.Add(this.dateTimePickerAddB);
+            this.groupBoxModify.Controls.Add(this.checkBoxIsTmall);
             this.groupBoxModify.Controls.Add(this.buttonModifyToDB);
             this.groupBoxModify.Controls.Add(this.buttonModify);
             this.groupBoxModify.Controls.Add(this.textBoxModifyCatiID);
@@ -653,14 +661,26 @@
             this.groupBoxModify.Controls.Add(this.checkBoxModifyEms);
             this.groupBoxModify.Location = new System.Drawing.Point(9, 347);
             this.groupBoxModify.Name = "groupBoxModify";
-            this.groupBoxModify.Size = new System.Drawing.Size(225, 160);
+            this.groupBoxModify.Size = new System.Drawing.Size(225, 220);
             this.groupBoxModify.TabIndex = 11;
             this.groupBoxModify.TabStop = false;
             this.groupBoxModify.Text = "数据修改";
             // 
+            // checkBoxIsTmall
+            // 
+            this.checkBoxIsTmall.AutoSize = true;
+            this.checkBoxIsTmall.Checked = true;
+            this.checkBoxIsTmall.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxIsTmall.Location = new System.Drawing.Point(162, 20);
+            this.checkBoxIsTmall.Name = "checkBoxIsTmall";
+            this.checkBoxIsTmall.Size = new System.Drawing.Size(48, 16);
+            this.checkBoxIsTmall.TabIndex = 18;
+            this.checkBoxIsTmall.Text = "天猫";
+            this.checkBoxIsTmall.UseVisualStyleBackColor = true;
+            // 
             // buttonModifyToDB
             // 
-            this.buttonModifyToDB.Location = new System.Drawing.Point(118, 123);
+            this.buttonModifyToDB.Location = new System.Drawing.Point(118, 190);
             this.buttonModifyToDB.Name = "buttonModifyToDB";
             this.buttonModifyToDB.Size = new System.Drawing.Size(99, 23);
             this.buttonModifyToDB.TabIndex = 17;
@@ -670,7 +690,7 @@
             // 
             // buttonModify
             // 
-            this.buttonModify.Location = new System.Drawing.Point(6, 123);
+            this.buttonModify.Location = new System.Drawing.Point(6, 190);
             this.buttonModify.Name = "buttonModify";
             this.buttonModify.Size = new System.Drawing.Size(93, 23);
             this.buttonModify.TabIndex = 16;
@@ -711,6 +731,7 @@
             this.dateTimePickerModifyF.Name = "dateTimePickerModifyF";
             this.dateTimePickerModifyF.Size = new System.Drawing.Size(151, 21);
             this.dateTimePickerModifyF.TabIndex = 12;
+            this.dateTimePickerModifyF.Value = new System.DateTime(2014, 12, 23, 11, 12, 23, 0);
             // 
             // label17
             // 
@@ -729,6 +750,7 @@
             this.dateTimePickerModifyB.Name = "dateTimePickerModifyB";
             this.dateTimePickerModifyB.Size = new System.Drawing.Size(151, 21);
             this.dateTimePickerModifyB.TabIndex = 10;
+            this.dateTimePickerModifyB.Value = new System.DateTime(2014, 12, 23, 11, 12, 29, 0);
             // 
             // checkBoxModifyPxj
             // 
@@ -853,6 +875,7 @@
             this.dateTimePickerQueryE.Name = "dateTimePickerQueryE";
             this.dateTimePickerQueryE.Size = new System.Drawing.Size(151, 21);
             this.dateTimePickerQueryE.TabIndex = 10;
+            this.dateTimePickerQueryE.Value = new System.DateTime(2014, 12, 23, 11, 12, 7, 0);
             // 
             // label12
             // 
@@ -871,7 +894,7 @@
             this.dateTimePickerQueryB.Name = "dateTimePickerQueryB";
             this.dateTimePickerQueryB.Size = new System.Drawing.Size(151, 21);
             this.dateTimePickerQueryB.TabIndex = 8;
-            this.dateTimePickerQueryB.Value = new System.DateTime(2010, 12, 11, 16, 47, 0, 0);
+            this.dateTimePickerQueryB.Value = new System.DateTime(2014, 12, 23, 11, 12, 13, 0);
             this.dateTimePickerQueryB.ValueChanged += new System.EventHandler(this.dateTimePickerQueryB_ValueChanged);
             // 
             // dataGridViewProduct
@@ -885,11 +908,12 @@
             this.dataGridViewProduct.GridColor = System.Drawing.SystemColors.ControlDarkDark;
             this.dataGridViewProduct.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewProduct.Name = "dataGridViewProduct";
-            this.dataGridViewProduct.ReadOnly = true;
             this.dataGridViewProduct.RowHeadersVisible = false;
             this.dataGridViewProduct.RowTemplate.Height = 23;
             this.dataGridViewProduct.Size = new System.Drawing.Size(653, 570);
             this.dataGridViewProduct.TabIndex = 0;
+            this.dataGridViewProduct.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataGridViewProduct_CellBeginEdit);
+            this.dataGridViewProduct.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProduct_CellValueChanged);
             // 
             // tabPage4
             // 
@@ -993,6 +1017,35 @@
             this.backgroundWorker1.WorkerReportsProgress = true;
             this.backgroundWorker1.WorkerSupportsCancellation = true;
             // 
+            // dateTimePickerAddF
+            // 
+            this.dateTimePickerAddF.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            this.dateTimePickerAddF.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePickerAddF.Location = new System.Drawing.Point(68, 150);
+            this.dateTimePickerAddF.Name = "dateTimePickerAddF";
+            this.dateTimePickerAddF.Size = new System.Drawing.Size(151, 21);
+            this.dateTimePickerAddF.TabIndex = 20;
+            this.dateTimePickerAddF.Value = new System.DateTime(2014, 12, 23, 15, 50, 32, 0);
+            // 
+            // dateTimePickerAddB
+            // 
+            this.dateTimePickerAddB.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            this.dateTimePickerAddB.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePickerAddB.Location = new System.Drawing.Point(68, 123);
+            this.dateTimePickerAddB.Name = "dateTimePickerAddB";
+            this.dateTimePickerAddB.Size = new System.Drawing.Size(151, 21);
+            this.dateTimePickerAddB.TabIndex = 19;
+            this.dateTimePickerAddB.Value = new System.DateTime(2014, 12, 23, 15, 50, 32, 0);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(6, 138);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(65, 12);
+            this.label18.TabIndex = 21;
+            this.label18.Text = "上传时间：";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1003,7 +1056,7 @@
             this.Controls.Add(this.toolStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Html2CSV Ver:2.4 (By Tianmimi QQ:4284607)";
+            this.Text = "Html2CSV Ver:2.5 (By Tianmimi QQ:4284607)";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.toolStrip1.ResumeLayout(false);
@@ -1122,6 +1175,10 @@
         private System.Windows.Forms.RichTextBox richTextBoxLinkEmsSeparater;
         private System.Windows.Forms.Button buttonEmsSeparate;
         private System.Windows.Forms.Button buttonEmsCopyID;
+        private System.Windows.Forms.CheckBox checkBoxIsTmall;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.DateTimePicker dateTimePickerAddF;
+        private System.Windows.Forms.DateTimePicker dateTimePickerAddB;
 
     }
 }
