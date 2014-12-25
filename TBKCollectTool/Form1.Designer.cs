@@ -78,6 +78,9 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.groupBoxModify = new System.Windows.Forms.GroupBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.dateTimePickerAddF = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerAddB = new System.Windows.Forms.DateTimePicker();
             this.checkBoxIsTmall = new System.Windows.Forms.CheckBox();
             this.buttonModifyToDB = new System.Windows.Forms.Button();
             this.buttonModify = new System.Windows.Forms.Button();
@@ -112,9 +115,6 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.dateTimePickerAddF = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePickerAddB = new System.Windows.Forms.DateTimePicker();
-            this.label18 = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -666,6 +666,35 @@
             this.groupBoxModify.TabStop = false;
             this.groupBoxModify.Text = "数据修改";
             // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(6, 138);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(65, 12);
+            this.label18.TabIndex = 21;
+            this.label18.Text = "上传时间：";
+            // 
+            // dateTimePickerAddF
+            // 
+            this.dateTimePickerAddF.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            this.dateTimePickerAddF.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePickerAddF.Location = new System.Drawing.Point(68, 150);
+            this.dateTimePickerAddF.Name = "dateTimePickerAddF";
+            this.dateTimePickerAddF.Size = new System.Drawing.Size(151, 21);
+            this.dateTimePickerAddF.TabIndex = 20;
+            this.dateTimePickerAddF.Value = new System.DateTime(2014, 12, 23, 15, 50, 32, 0);
+            // 
+            // dateTimePickerAddB
+            // 
+            this.dateTimePickerAddB.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            this.dateTimePickerAddB.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePickerAddB.Location = new System.Drawing.Point(68, 123);
+            this.dateTimePickerAddB.Name = "dateTimePickerAddB";
+            this.dateTimePickerAddB.Size = new System.Drawing.Size(151, 21);
+            this.dateTimePickerAddB.TabIndex = 19;
+            this.dateTimePickerAddB.Value = new System.DateTime(2014, 12, 23, 15, 50, 32, 0);
+            // 
             // checkBoxIsTmall
             // 
             this.checkBoxIsTmall.AutoSize = true;
@@ -1017,35 +1046,6 @@
             this.backgroundWorker1.WorkerReportsProgress = true;
             this.backgroundWorker1.WorkerSupportsCancellation = true;
             // 
-            // dateTimePickerAddF
-            // 
-            this.dateTimePickerAddF.CustomFormat = "yyyy-MM-dd HH:mm:ss";
-            this.dateTimePickerAddF.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePickerAddF.Location = new System.Drawing.Point(68, 150);
-            this.dateTimePickerAddF.Name = "dateTimePickerAddF";
-            this.dateTimePickerAddF.Size = new System.Drawing.Size(151, 21);
-            this.dateTimePickerAddF.TabIndex = 20;
-            this.dateTimePickerAddF.Value = new System.DateTime(2014, 12, 23, 15, 50, 32, 0);
-            // 
-            // dateTimePickerAddB
-            // 
-            this.dateTimePickerAddB.CustomFormat = "yyyy-MM-dd HH:mm:ss";
-            this.dateTimePickerAddB.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePickerAddB.Location = new System.Drawing.Point(68, 123);
-            this.dateTimePickerAddB.Name = "dateTimePickerAddB";
-            this.dateTimePickerAddB.Size = new System.Drawing.Size(151, 21);
-            this.dateTimePickerAddB.TabIndex = 19;
-            this.dateTimePickerAddB.Value = new System.DateTime(2014, 12, 23, 15, 50, 32, 0);
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(6, 138);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(65, 12);
-            this.label18.TabIndex = 21;
-            this.label18.Text = "上传时间：";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1056,7 +1056,7 @@
             this.Controls.Add(this.toolStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Html2CSV Ver:2.5 (By Tianmimi QQ:4284607)";
+            this.Text = "Html2CSV Ver:2.51 (By Tianmimi QQ:4284607)";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.toolStrip1.ResumeLayout(false);

@@ -344,7 +344,7 @@ namespace TBKCollectTool
                 {
                     for (int i = 0; i < lsProducts.Count;i++ )
                     {
-                        string line = string.Format(@"NULL;""9999"";""{0}"";""0"";""1"";""{1}"";""{2}"";NULL;NULL;""萌黛儿旗舰店"";NULL;""1"";""admin"";""{3}"";NULL;""{4}"";NULL;""2277"";""0.00"";""0"";""{5}"";""6700"";""{6}"";""{7}"";""1"";""underway"";NULL;""B"";NULL;""{8}"";""{9}"";NULL;;NULL;""0"";""1"";""9844"";""0"";NULL;NULL;NULL;""{10}"";""0"";""0"";NULL",
+                        string line = string.Format(@"NULL;""9999"";""{0}"";""0"";""1"";""{1}"";""{2}"";NULL;NULL;""萌黛儿旗舰店"";NULL;""1"";""admin"";""{3}"";NULL;""{4}"";NULL;""2277"";""0.00"";""0"";""{5}"";""6700"";""{6}"";""{7}"";""1"";""underway"";NULL;""{11}"";NULL;""{8}"";""{9}"";NULL;;NULL;""0"";""1"";""9844"";""0"";NULL;NULL;NULL;""{10}"";""0"";""0"";NULL",
                            //ProductItem.cateID,
                            lsProducts[i]._cateID,
                            lsProducts[i].sourceID,
@@ -361,7 +361,8 @@ namespace TBKCollectTool
                            //ProductItem.dtFinish,
                            //ProductItem.IsPost,
                            //ProductItem.IsSale,
-                           GetTimeStampShort()
+                           lsProducts[i]._dtAdd,
+                           lsProducts[i]._IsTmall
                             );
                         sr.WriteLine(line);
                     }
