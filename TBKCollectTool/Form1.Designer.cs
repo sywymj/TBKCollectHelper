@@ -115,6 +115,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -639,6 +640,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.dataGridViewProduct);
+            this.splitContainer2.Panel2.Controls.Add(this.panel2);
             this.splitContainer2.Size = new System.Drawing.Size(904, 572);
             this.splitContainer2.SplitterDistance = 245;
             this.splitContainer2.TabIndex = 0;
@@ -699,12 +701,13 @@
             // 
             this.checkBoxIsTmall.AutoSize = true;
             this.checkBoxIsTmall.Checked = true;
-            this.checkBoxIsTmall.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxIsTmall.CheckState = System.Windows.Forms.CheckState.Indeterminate;
             this.checkBoxIsTmall.Location = new System.Drawing.Point(162, 20);
             this.checkBoxIsTmall.Name = "checkBoxIsTmall";
             this.checkBoxIsTmall.Size = new System.Drawing.Size(48, 16);
             this.checkBoxIsTmall.TabIndex = 18;
             this.checkBoxIsTmall.Text = "天猫";
+            this.checkBoxIsTmall.ThreeState = true;
             this.checkBoxIsTmall.UseVisualStyleBackColor = true;
             // 
             // buttonModifyToDB
@@ -785,24 +788,26 @@
             // 
             this.checkBoxModifyPxj.AutoSize = true;
             this.checkBoxModifyPxj.Checked = true;
-            this.checkBoxModifyPxj.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxModifyPxj.CheckState = System.Windows.Forms.CheckState.Indeterminate;
             this.checkBoxModifyPxj.Location = new System.Drawing.Point(84, 20);
             this.checkBoxModifyPxj.Name = "checkBoxModifyPxj";
             this.checkBoxModifyPxj.Size = new System.Drawing.Size(72, 16);
             this.checkBoxModifyPxj.TabIndex = 9;
             this.checkBoxModifyPxj.Text = "拍下减价";
+            this.checkBoxModifyPxj.ThreeState = true;
             this.checkBoxModifyPxj.UseVisualStyleBackColor = true;
             // 
             // checkBoxModifyEms
             // 
             this.checkBoxModifyEms.AutoSize = true;
             this.checkBoxModifyEms.Checked = true;
-            this.checkBoxModifyEms.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxModifyEms.CheckState = System.Windows.Forms.CheckState.Indeterminate;
             this.checkBoxModifyEms.Location = new System.Drawing.Point(11, 20);
             this.checkBoxModifyEms.Name = "checkBoxModifyEms";
             this.checkBoxModifyEms.Size = new System.Drawing.Size(48, 16);
             this.checkBoxModifyEms.TabIndex = 8;
             this.checkBoxModifyEms.Text = "包邮";
+            this.checkBoxModifyEms.ThreeState = true;
             this.checkBoxModifyEms.UseVisualStyleBackColor = true;
             // 
             // groupBoxQuery
@@ -842,6 +847,8 @@
             this.textBoxQueryNumiiD.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxQueryNumiiD.Size = new System.Drawing.Size(202, 152);
             this.textBoxQueryNumiiD.TabIndex = 17;
+            this.textBoxQueryNumiiD.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxQueryNumiiD_KeyDown);
+            this.textBoxQueryNumiiD.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxQueryNumiiD_KeyUp);
             // 
             // button1
             // 
@@ -939,7 +946,7 @@
             this.dataGridViewProduct.Name = "dataGridViewProduct";
             this.dataGridViewProduct.RowHeadersVisible = false;
             this.dataGridViewProduct.RowTemplate.Height = 23;
-            this.dataGridViewProduct.Size = new System.Drawing.Size(653, 570);
+            this.dataGridViewProduct.Size = new System.Drawing.Size(653, 529);
             this.dataGridViewProduct.TabIndex = 0;
             this.dataGridViewProduct.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataGridViewProduct_CellBeginEdit);
             this.dataGridViewProduct.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProduct_CellValueChanged);
@@ -983,6 +990,7 @@
             this.treeViewEmsSeparate.Size = new System.Drawing.Size(239, 527);
             this.treeViewEmsSeparate.TabIndex = 2;
             this.treeViewEmsSeparate.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewEmsSeparate_NodeMouseClick);
+            this.treeViewEmsSeparate.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewEmsSeparate_NodeMouseDoubleClick);
             // 
             // panel1
             // 
@@ -1045,6 +1053,14 @@
             // 
             this.backgroundWorker1.WorkerReportsProgress = true;
             this.backgroundWorker1.WorkerSupportsCancellation = true;
+            // 
+            // panel2
+            // 
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Location = new System.Drawing.Point(0, 529);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(653, 41);
+            this.panel2.TabIndex = 0;
             // 
             // Form1
             // 
@@ -1179,6 +1195,7 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.DateTimePicker dateTimePickerAddF;
         private System.Windows.Forms.DateTimePicker dateTimePickerAddB;
+        private System.Windows.Forms.Panel panel2;
 
     }
 }

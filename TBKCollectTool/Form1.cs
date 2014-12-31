@@ -71,7 +71,8 @@ namespace TBKCollectTool
             this.dateTimePickerModifyF.Value = dtInit;
             this.dateTimePickerQueryB.Value = dtInit;
             this.dateTimePickerQueryE.Value = dtInit;
-
+            this.dateTimePickerAddB.Value = dtInit;
+            this.dateTimePickerAddF.Value = dtInit;
 
 
             this.backgroundWorker1.DoWork += backgroundWorker1_DoWork;
@@ -554,8 +555,8 @@ namespace TBKCollectTool
                     _item.sourceID = mySqlRd.GetString("num_iid");
                     _item.Image = mySqlRd.GetString("pic_url");
                     _item.Titel = mySqlRd.GetString("title");
-                    _item.Price = mySqlRd.GetDecimal("price").ToString();
-                    _item.OrigPrice = mySqlRd.GetDecimal("coupon_price").ToString();
+                    _item.Price = mySqlRd.GetDecimal("coupon_price").ToString(); 
+                    _item.OrigPrice =mySqlRd.GetDecimal("price").ToString();
                     _item._IsPost = mySqlRd.GetInt32("ems").ToString();
                     _item._IsSale = mySqlRd.GetInt32("pxj").ToString();
                     _item._dtBegin = mySqlRd.GetInt32("coupon_start_time").ToString();
@@ -582,10 +583,25 @@ namespace TBKCollectTool
 
         private void buttonModify_Click(object sender, EventArgs e)
         {
-            bool _isEms = this.checkBoxModifyEms.Checked;
-            bool _isPxj = this.checkBoxModifyPxj.Checked;
+            bool? _isEms = null;
+            if (this.checkBoxModifyEms.CheckState!=CheckState.Indeterminate)
+            {
+                _isEms = this.checkBoxModifyEms.Checked;
+            }
 
-            bool _isTmall = this.checkBoxIsTmall.Checked;
+
+            bool? _isPxj = null;
+            if (this.checkBoxModifyPxj.CheckState!=CheckState.Indeterminate)
+            {
+                _isPxj = this.checkBoxModifyPxj.Checked;
+            }
+
+            bool? _isTmall = null;
+            if (this.checkBoxIsTmall.CheckState!=CheckState.Indeterminate)
+            {
+                _isTmall = this.checkBoxIsTmall.Checked;
+            }
+
 
             string _begin = GetTimeStampShort(this.dateTimePickerModifyB.Value);
             string _finish = GetTimeStampShort(this.dateTimePickerModifyF.Value);
@@ -601,10 +617,22 @@ namespace TBKCollectTool
                 for (int i = 0; i < lsProducts.Count;i++ )
                 {
                     ProductItem _item = lsProducts[i];
-                    _item._IsPost = _isEms ? "1" : "0";
-                    _item._IsSale = _isPxj ? "1" : "0";
+                    if (_isEms.HasValue)
+                    {
+                        _item._IsPost = _isEms.Value ? "1" : "0";
+                    }
+                    if (_isPxj.HasValue)
+                    {
+                        _item._IsSale = _isPxj.Value ? "1" : "0";
+                    }
+                    if (_isTmall.HasValue)
+                    {
+                        _item._IsTmall = _isTmall.Value ? "B" : "C";
+                    }
+                   
+                   
 
-                    _item._IsTmall = _isTmall ? "B" : "C";
+                    
 
                     _item._dtBegin = _begin;
                     _item._dtFinish = _finish;
@@ -749,7 +777,8 @@ namespace TBKCollectTool
                     sb.Append(string.Format("{0}\r\n", _m.Value));
                 }
                 Clipboard.SetData(DataFormats.Text, sb.ToString());
-                MessageBox.Show(string.Format(@"已复制 {0} 条数据链接到粘贴板！！", mc.Count));
+               //MessageBox.Show(string.Format(@"已复制 {0} 条数据链接到粘贴板！！", mc.Count));
+                SetLog(string.Format(@"已复制 {0} 条数据链接到粘贴板！！", mc.Count));
             }
             catch (System.Exception ex)
             {
@@ -828,6 +857,27 @@ namespace TBKCollectTool
             {
                 e.Cancel = true;
             }
+        }
+
+        private void textBoxQueryNumiiD_KeyUp(object sender, KeyEventArgs e)
+        {
+            //if (e.Modifiers == Keys.Control && e.KeyCode == Keys.A)
+            //{
+            //    ((TextBox)sender).SelectAll();
+            //} 
+        }
+
+        private void textBoxQueryNumiiD_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Modifiers == Keys.Control && e.KeyCode == Keys.A)
+            {
+                ((TextBox)sender).SelectAll();
+            } 
+        }
+
+        private void treeViewEmsSeparate_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            this.buttonEmsCopyID.PerformClick();
         }
     }
 }
