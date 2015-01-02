@@ -20,6 +20,7 @@ namespace TBKCollectTool
         string HomeUrl = "http://zx.mytaomi.com/uz";
         List<ProductItem> lsProducts = null;
         string configFileName = "config.dat";
+        bool CfgOnlyUpdatePicUrl = false;
         Random myRand = new Random();
 
         SMS8080Helper.AppConfig appconifg = new SMS8080Helper.AppConfig();
@@ -156,47 +157,72 @@ namespace TBKCollectTool
                 {
                     string cmdStr = string.Empty;
                     ProductItem _item=lsProducts[i];
-                    if (string.IsNullOrEmpty(_item.ID))
+                    if (CfgOnlyUpdatePicUrl)
                     {
-                        cmdStr = string.Format(@"INSERT IGNORE INTO `{11}` VALUES (NULL,'9999','{0}','0','1','{1}','{2}',NULL,NULL,'萌黛儿旗舰店',NULL,'1','admin','{3}',NULL,'{4}',NULL,'2277','0.00','0','{5}','6700','{6}','{7}','1','underway',NULL,'{12}',NULL,'{8}','{9}',NULL,NULL,NULL,'0','1','9844','0',NULL,NULL,NULL,'{10}','0','0',NULL)",
-                            //ProductItem.cateID,
-                            lsProducts[i]._cateID,
-                           lsProducts[i].sourceID,
-                           lsProducts[i].Titel,
-                           lsProducts[i].Image,
-                           lsProducts[i].OrigPrice,
-                           lsProducts[i].Price,
-                           //ProductItem.dtBegin,
-                           //ProductItem.dtFinish,
-                           //ProductItem.IsPost,
-                           //ProductItem.IsSale,
-                           lsProducts[i]._dtBegin,
-                           lsProducts[i]._dtFinish,
-                           lsProducts[i]._IsPost,
-                           lsProducts[i]._IsSale,
-
-                           //GetTimeStampShort(),
-                           lsProducts[i]._dtAdd,
-                           DBHelperServer.ProductTableName,
-                           lsProducts[i]._IsTmall
-                            );
+#region 只更新图片Url入库处理
+                        cmdStr = string.Format(@"Update {0} set pic_url='{1}'  where num_iid='{2}'",
+                                DBHelperServer.ProductTableName, _item.Image,_item.sourceID.Trim());
+                        int hr = DBHelperServer.ExecuteCommand(cmdStr);
+                        if (hr <= 0)
+                        {
+                            //SetLog(string.Format("{0} 库中已存在！", lsProducts[i].sourceID));
+                        }
+                        else
+                        {
+                            SetLog(string.Format("{0} 商品图片地址修改成功！", lsProducts[i].sourceID));
+                        }
+#endregion
                     } 
                     else
                     {
-                        cmdStr = string.Format(@"Update {0} set coupon_start_time='{1}',coupon_end_time='{2}',ems='{3}',pxj='{4}',cate_id='{6}',shop_type='{7}',add_time='{8}',title='{9}'  where id='{5}'",
-                            DBHelperServer.ProductTableName,_item._dtBegin, _item._dtFinish, _item._IsPost, _item._IsSale,_item.ID,_item._cateID,_item._IsTmall,_item._dtAdd,_item.Titel);
+                        #region 正常入库处理
+
+                        if (string.IsNullOrEmpty(_item.ID))
+                        {
+                            cmdStr = string.Format(@"INSERT IGNORE INTO `{11}` VALUES (NULL,'9999','{0}','0','1','{1}','{2}',NULL,NULL,'萌黛儿旗舰店',NULL,'1','admin','{3}',NULL,'{4}',NULL,'2277','0.00','0','{5}','6700','{6}','{7}','1','underway',NULL,'{12}',NULL,'{8}','{9}',NULL,NULL,NULL,'0','1','9844','0',NULL,NULL,NULL,'{10}','0','0',NULL)",
+                                //ProductItem.cateID,
+                                lsProducts[i]._cateID,
+                               lsProducts[i].sourceID,
+                               lsProducts[i].Titel,
+                               lsProducts[i].Image,
+                               lsProducts[i].OrigPrice,
+                               lsProducts[i].Price,
+                                //ProductItem.dtBegin,
+                                //ProductItem.dtFinish,
+                                //ProductItem.IsPost,
+                                //ProductItem.IsSale,
+                               lsProducts[i]._dtBegin,
+                               lsProducts[i]._dtFinish,
+                               lsProducts[i]._IsPost,
+                               lsProducts[i]._IsSale,
+
+                               //GetTimeStampShort(),
+                               lsProducts[i]._dtAdd,
+                               DBHelperServer.ProductTableName,
+                               lsProducts[i]._IsTmall
+                                );
+                        }
+                        else
+                        {
+                            cmdStr = string.Format(@"Update {0} set coupon_start_time='{1}',coupon_end_time='{2}',ems='{3}',pxj='{4}',cate_id='{6}',shop_type='{7}',add_time='{8}',title='{9}'  where id='{5}'",
+                                DBHelperServer.ProductTableName, _item._dtBegin, _item._dtFinish, _item._IsPost, _item._IsSale, _item.ID, _item._cateID, _item._IsTmall, _item._dtAdd, _item.Titel);
+                        }
+
+                        int hr = DBHelperServer.ExecuteCommand(cmdStr);
+                        if (hr <= 0)
+                        {
+                            SetLog(string.Format("{0} 库中已存在！", lsProducts[i].sourceID));
+                        }
+                        else
+                        {
+                            SetLog(string.Format("{0}入库成功！", lsProducts[i].sourceID));
+                        }
+
+                        #endregion
                     }
 
-                    int hr=DBHelperServer.ExecuteCommand(cmdStr);
-                    if (hr<=0)
-                    {
-                        SetLog(string.Format("{0} 库中已存在！", lsProducts[i].sourceID));
-                    } 
-                    else
-                    {
-                        SetLog(string.Format("{0}入库成功！", lsProducts[i].sourceID));
-                    }
-                    
+
+
                 }
                 catch (System.Exception ex)
                 {
@@ -441,6 +467,9 @@ namespace TBKCollectTool
             {
                 return;
             }
+
+            CfgOnlyUpdatePicUrl = this.checkBoxToDbOnlyPicUrl.Checked;
+
             this.toolStrip1.Enabled = false;
             this.toolStripProgressBarToDb.Minimum = 0;
             this.toolStripProgressBarToDb.Maximum = lsProducts.Count;
@@ -878,6 +907,26 @@ namespace TBKCollectTool
         private void treeViewEmsSeparate_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             this.buttonEmsCopyID.PerformClick();
+        }
+
+        private void buttonTitleFilter_Click(object sender, EventArgs e)
+        {
+            string filterWord = this.textBoxTitleFilteWord.Text.Trim();
+            if (string.IsNullOrEmpty(filterWord))
+            {
+                return;
+            }
+            int filteCount = 0;
+            for (int i = 0; i < lsProducts.Count;i++ )
+            {
+                if (lsProducts[i].Titel.Contains(filterWord))
+                {
+                    filteCount++;
+                    lsProducts[i].Titel = lsProducts[i].Titel.Replace(filterWord, string.Empty).Trim();
+                }
+            }
+            SetLog(string.Format(@"过滤 {0}  条商品标题", filteCount));
+            DisplaySelectProducts();
         }
     }
 }

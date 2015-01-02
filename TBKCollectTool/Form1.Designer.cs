@@ -105,6 +105,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.dateTimePickerQueryB = new System.Windows.Forms.DateTimePicker();
             this.dataGridViewProduct = new System.Windows.Forms.DataGridView();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.treeViewEmsSeparate = new System.Windows.Forms.TreeView();
@@ -115,7 +116,10 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.checkBoxToDbOnlyPicUrl = new System.Windows.Forms.CheckBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.textBoxTitleFilteWord = new System.Windows.Forms.TextBox();
+            this.buttonTitleFilter = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -132,6 +136,7 @@
             this.groupBoxModify.SuspendLayout();
             this.groupBoxQuery.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProduct)).BeginInit();
+            this.panel2.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
@@ -650,6 +655,7 @@
             this.groupBoxModify.Controls.Add(this.label18);
             this.groupBoxModify.Controls.Add(this.dateTimePickerAddF);
             this.groupBoxModify.Controls.Add(this.dateTimePickerAddB);
+            this.groupBoxModify.Controls.Add(this.checkBoxToDbOnlyPicUrl);
             this.groupBoxModify.Controls.Add(this.checkBoxIsTmall);
             this.groupBoxModify.Controls.Add(this.buttonModifyToDB);
             this.groupBoxModify.Controls.Add(this.buttonModify);
@@ -661,9 +667,9 @@
             this.groupBoxModify.Controls.Add(this.dateTimePickerModifyB);
             this.groupBoxModify.Controls.Add(this.checkBoxModifyPxj);
             this.groupBoxModify.Controls.Add(this.checkBoxModifyEms);
-            this.groupBoxModify.Location = new System.Drawing.Point(9, 347);
+            this.groupBoxModify.Location = new System.Drawing.Point(9, 341);
             this.groupBoxModify.Name = "groupBoxModify";
-            this.groupBoxModify.Size = new System.Drawing.Size(225, 220);
+            this.groupBoxModify.Size = new System.Drawing.Size(225, 225);
             this.groupBoxModify.TabIndex = 11;
             this.groupBoxModify.TabStop = false;
             this.groupBoxModify.Text = "数据修改";
@@ -671,7 +677,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(6, 138);
+            this.label18.Location = new System.Drawing.Point(6, 135);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(65, 12);
             this.label18.TabIndex = 21;
@@ -681,7 +687,7 @@
             // 
             this.dateTimePickerAddF.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.dateTimePickerAddF.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePickerAddF.Location = new System.Drawing.Point(68, 150);
+            this.dateTimePickerAddF.Location = new System.Drawing.Point(68, 147);
             this.dateTimePickerAddF.Name = "dateTimePickerAddF";
             this.dateTimePickerAddF.Size = new System.Drawing.Size(151, 21);
             this.dateTimePickerAddF.TabIndex = 20;
@@ -691,7 +697,7 @@
             // 
             this.dateTimePickerAddB.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.dateTimePickerAddB.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePickerAddB.Location = new System.Drawing.Point(68, 123);
+            this.dateTimePickerAddB.Location = new System.Drawing.Point(68, 120);
             this.dateTimePickerAddB.Name = "dateTimePickerAddB";
             this.dateTimePickerAddB.Size = new System.Drawing.Size(151, 21);
             this.dateTimePickerAddB.TabIndex = 19;
@@ -702,7 +708,7 @@
             this.checkBoxIsTmall.AutoSize = true;
             this.checkBoxIsTmall.Checked = true;
             this.checkBoxIsTmall.CheckState = System.Windows.Forms.CheckState.Indeterminate;
-            this.checkBoxIsTmall.Location = new System.Drawing.Point(162, 20);
+            this.checkBoxIsTmall.Location = new System.Drawing.Point(162, 17);
             this.checkBoxIsTmall.Name = "checkBoxIsTmall";
             this.checkBoxIsTmall.Size = new System.Drawing.Size(48, 16);
             this.checkBoxIsTmall.TabIndex = 18;
@@ -712,7 +718,7 @@
             // 
             // buttonModifyToDB
             // 
-            this.buttonModifyToDB.Location = new System.Drawing.Point(118, 190);
+            this.buttonModifyToDB.Location = new System.Drawing.Point(118, 194);
             this.buttonModifyToDB.Name = "buttonModifyToDB";
             this.buttonModifyToDB.Size = new System.Drawing.Size(99, 23);
             this.buttonModifyToDB.TabIndex = 17;
@@ -722,7 +728,7 @@
             // 
             // buttonModify
             // 
-            this.buttonModify.Location = new System.Drawing.Point(6, 190);
+            this.buttonModify.Location = new System.Drawing.Point(6, 194);
             this.buttonModify.Name = "buttonModify";
             this.buttonModify.Size = new System.Drawing.Size(93, 23);
             this.buttonModify.TabIndex = 16;
@@ -732,7 +738,7 @@
             // 
             // textBoxModifyCatiID
             // 
-            this.textBoxModifyCatiID.Location = new System.Drawing.Point(68, 96);
+            this.textBoxModifyCatiID.Location = new System.Drawing.Point(68, 93);
             this.textBoxModifyCatiID.Name = "textBoxModifyCatiID";
             this.textBoxModifyCatiID.Size = new System.Drawing.Size(147, 21);
             this.textBoxModifyCatiID.TabIndex = 15;
@@ -740,7 +746,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(6, 99);
+            this.label15.Location = new System.Drawing.Point(6, 96);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(65, 12);
             this.label15.TabIndex = 14;
@@ -749,7 +755,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(3, 71);
+            this.label16.Location = new System.Drawing.Point(3, 68);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(65, 12);
             this.label16.TabIndex = 13;
@@ -759,7 +765,7 @@
             // 
             this.dateTimePickerModifyF.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.dateTimePickerModifyF.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePickerModifyF.Location = new System.Drawing.Point(68, 68);
+            this.dateTimePickerModifyF.Location = new System.Drawing.Point(68, 65);
             this.dateTimePickerModifyF.Name = "dateTimePickerModifyF";
             this.dateTimePickerModifyF.Size = new System.Drawing.Size(151, 21);
             this.dateTimePickerModifyF.TabIndex = 12;
@@ -768,7 +774,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(3, 44);
+            this.label17.Location = new System.Drawing.Point(3, 41);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(65, 12);
             this.label17.TabIndex = 11;
@@ -778,7 +784,7 @@
             // 
             this.dateTimePickerModifyB.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.dateTimePickerModifyB.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePickerModifyB.Location = new System.Drawing.Point(68, 41);
+            this.dateTimePickerModifyB.Location = new System.Drawing.Point(68, 38);
             this.dateTimePickerModifyB.Name = "dateTimePickerModifyB";
             this.dateTimePickerModifyB.Size = new System.Drawing.Size(151, 21);
             this.dateTimePickerModifyB.TabIndex = 10;
@@ -789,7 +795,7 @@
             this.checkBoxModifyPxj.AutoSize = true;
             this.checkBoxModifyPxj.Checked = true;
             this.checkBoxModifyPxj.CheckState = System.Windows.Forms.CheckState.Indeterminate;
-            this.checkBoxModifyPxj.Location = new System.Drawing.Point(84, 20);
+            this.checkBoxModifyPxj.Location = new System.Drawing.Point(84, 17);
             this.checkBoxModifyPxj.Name = "checkBoxModifyPxj";
             this.checkBoxModifyPxj.Size = new System.Drawing.Size(72, 16);
             this.checkBoxModifyPxj.TabIndex = 9;
@@ -802,7 +808,7 @@
             this.checkBoxModifyEms.AutoSize = true;
             this.checkBoxModifyEms.Checked = true;
             this.checkBoxModifyEms.CheckState = System.Windows.Forms.CheckState.Indeterminate;
-            this.checkBoxModifyEms.Location = new System.Drawing.Point(11, 20);
+            this.checkBoxModifyEms.Location = new System.Drawing.Point(11, 17);
             this.checkBoxModifyEms.Name = "checkBoxModifyEms";
             this.checkBoxModifyEms.Size = new System.Drawing.Size(48, 16);
             this.checkBoxModifyEms.TabIndex = 8;
@@ -951,6 +957,17 @@
             this.dataGridViewProduct.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataGridViewProduct_CellBeginEdit);
             this.dataGridViewProduct.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProduct_CellValueChanged);
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.buttonTitleFilter);
+            this.panel2.Controls.Add(this.textBoxTitleFilteWord);
+            this.panel2.Controls.Add(this.label19);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Location = new System.Drawing.Point(0, 529);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(653, 41);
+            this.panel2.TabIndex = 0;
+            // 
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.splitContainer3);
@@ -1054,13 +1071,41 @@
             this.backgroundWorker1.WorkerReportsProgress = true;
             this.backgroundWorker1.WorkerSupportsCancellation = true;
             // 
-            // panel2
+            // checkBoxToDbOnlyPicUrl
             // 
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 529);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(653, 41);
-            this.panel2.TabIndex = 0;
+            this.checkBoxToDbOnlyPicUrl.AutoSize = true;
+            this.checkBoxToDbOnlyPicUrl.Location = new System.Drawing.Point(10, 172);
+            this.checkBoxToDbOnlyPicUrl.Name = "checkBoxToDbOnlyPicUrl";
+            this.checkBoxToDbOnlyPicUrl.Size = new System.Drawing.Size(192, 16);
+            this.checkBoxToDbOnlyPicUrl.TabIndex = 0;
+            this.checkBoxToDbOnlyPicUrl.Text = "入库时仅修改同ID商品图片地址";
+            this.checkBoxToDbOnlyPicUrl.UseVisualStyleBackColor = true;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(7, 14);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(65, 12);
+            this.label19.TabIndex = 1;
+            this.label19.Text = "标题过滤：";
+            // 
+            // textBoxTitleFilteWord
+            // 
+            this.textBoxTitleFilteWord.Location = new System.Drawing.Point(67, 10);
+            this.textBoxTitleFilteWord.Name = "textBoxTitleFilteWord";
+            this.textBoxTitleFilteWord.Size = new System.Drawing.Size(297, 21);
+            this.textBoxTitleFilteWord.TabIndex = 2;
+            // 
+            // buttonTitleFilter
+            // 
+            this.buttonTitleFilter.Location = new System.Drawing.Point(370, 9);
+            this.buttonTitleFilter.Name = "buttonTitleFilter";
+            this.buttonTitleFilter.Size = new System.Drawing.Size(75, 23);
+            this.buttonTitleFilter.TabIndex = 3;
+            this.buttonTitleFilter.Text = "过滤";
+            this.buttonTitleFilter.UseVisualStyleBackColor = true;
+            this.buttonTitleFilter.Click += new System.EventHandler(this.buttonTitleFilter_Click);
             // 
             // Form1
             // 
@@ -1072,7 +1117,7 @@
             this.Controls.Add(this.toolStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Html2CSV Ver:2.51 (By Tianmimi QQ:4284607)";
+            this.Text = "Html2CSV Ver:2.61 (By Tianmimi QQ:4284607)";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.toolStrip1.ResumeLayout(false);
@@ -1097,6 +1142,8 @@
             this.groupBoxQuery.ResumeLayout(false);
             this.groupBoxQuery.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProduct)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel2.ResumeLayout(false);
@@ -1196,6 +1243,10 @@
         private System.Windows.Forms.DateTimePicker dateTimePickerAddF;
         private System.Windows.Forms.DateTimePicker dateTimePickerAddB;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button buttonTitleFilter;
+        private System.Windows.Forms.TextBox textBoxTitleFilteWord;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.CheckBox checkBoxToDbOnlyPicUrl;
 
     }
 }
